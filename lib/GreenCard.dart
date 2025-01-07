@@ -18,34 +18,65 @@ class GreenCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: Container(
+        height: 150,
+        width: 350,
         padding: const EdgeInsets.all(10),
         child: Row(
           children: [
             Container(
               width: 100,
-              height: 100,
+              height: 200,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(user.profileImage),
                   fit: BoxFit.cover,
                 ),
+                borderRadius: BorderRadius.circular(15),
               ),
+
             ),
-            const SizedBox(width: 10),
+            const SizedBox(width: 20),
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Name: ${user.name}'),
-                  Text('User ID: ${user.userId}'),
-                  Text('Age: ${user.age}'),
-                  Text('Profession: ${user.profession}'),
+                  textCombo("Name", "${user.name}"),
+                  textCombo("User ID", "${user.userId}"),
+                  textCombo("Age", "${user.age}"),
+                  textCombo("Profession", "${user.profession}")
                 ],
               ),
+              
             ),
           ],
         ),
       ),
     );
   }
+
+  Widget textCombo(String leftText, String rightText) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: 75,
+          child: Text(
+            leftText,
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          ),
+        ),
+        const Text(
+          ":",
+          style: TextStyle(color: Colors.white),
+        ),
+        const SizedBox(width: 8),
+        Text(
+          rightText,
+          style: const TextStyle(color: Colors.yellow, fontWeight: FontWeight.w600),
+        ),
+      ],
+    );
+  }
+
 }
