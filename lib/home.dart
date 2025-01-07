@@ -39,10 +39,6 @@ class _HomePageState extends State<HomePage> {
                 child: TextField(
                   controller: userId,
                   decoration: InputDecoration(
-                    // border: OutlineInputBorder(
-                    //   borderRadius: BorderRadius.circular(15),
-                    //   borderSide: const BorderSide(color: Colors.yellow),
-                    // ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
                       borderSide: const BorderSide(color: Colors.green),
@@ -63,6 +59,13 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onPressed: () async {
+                if (userId.text.trim().isEmpty) {
+                  setState(() {
+                    apierror = "Please enter a user ID";
+                    user = null;
+                  });
+                  return;
+                }
                 setState(() {
                   isLoading = true;
                   apierror = null;
@@ -70,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                 });
                 try {
                   final apiresponse = await Service().getUserInfo(userId.text);
-                  print(apiresponse);
+                  // print(apiresponse);
                   setState(() {
                     if (apiresponse.error == null) {
                       user = apiresponse.data.user;
@@ -91,19 +94,6 @@ class _HomePageState extends State<HomePage> {
               child: const Text('Fetch User Data'),
             ),
             const SizedBox(height: 20),
-            // if (isLoading)
-            //   const CircularProgressIndicator()
-            // else if (apierror != null)
-            //   Padding(
-            //     padding: const EdgeInsets.all(5.0),
-            //     child: Text(
-            //       apierror!,
-            //       style: const TextStyle(
-            //           color: Colors.red, fontWeight: FontWeight.w700),
-            //     ),
-            //   )
-            // else if (user != null)
-            //   GreenCard(user: user!),
             isLoading
                 ? const CircularProgressIndicator()
                 : apierror != null
@@ -117,7 +107,8 @@ class _HomePageState extends State<HomePage> {
                         : const Text(
                             "Enter a user ID and click to get the user details",
                             style: TextStyle(
-                                color: Colors.green, fontWeight: FontWeight.w700),
+                                color: Colors.green,
+                                fontWeight: FontWeight.w700),
                           ),
           ],
         ),
