@@ -9,7 +9,8 @@ class Service {
     if (response.statusCode == 200) {
       return Welcome.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Failed to load user info');
+      final decodedResponse = jsonDecode(response.body);
+      throw decodedResponse['error'] ?? 'Something went wrong';
     }
   }
 }

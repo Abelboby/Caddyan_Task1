@@ -19,7 +19,7 @@ class GreenCard extends StatelessWidget {
       ),
       child: Container(
         height: 150,
-        width: 350,
+        width: 400,
         padding: const EdgeInsets.all(10),
         child: Row(
           children: [
@@ -35,16 +35,16 @@ class GreenCard extends StatelessWidget {
               ),
 
             ),
-            const SizedBox(width: 20),
+            const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  textCombo("Name", "${user.name}"),
-                  textCombo("User ID", "${user.userId}"),
-                  textCombo("Age", "${user.age}"),
-                  textCombo("Profession", "${user.profession}")
+                  textCombo("Name", user.name),
+                  textCombo("User ID", user.userId.toString()),
+                  textCombo("Age", user.age.toString()),
+                  textCombo("Profession", user.profession)
                 ],
               ),
               

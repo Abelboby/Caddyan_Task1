@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:test1/model.dart';
-
-import 'GreenCard.dart';
+import 'model.dart';
+import 'greencard.dart';
 import 'service.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,6 +14,8 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController userId = TextEditingController();
   User? user;
   String? apierror;
+  bool isLoading = false;
+
   @override
   void dispose() {
     userId.dispose();
@@ -33,7 +34,8 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 20  ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 70, vertical: 20),
                 child: TextField(
                   controller: userId,
                   decoration: InputDecoration(
@@ -61,22 +63,63 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onPressed: () async {
-              print(userId.text);
-              final apiresponse = await Service().getUserInfo(userId.text);
-              if(apiresponse.error == null) {
                 setState(() {
-                  user = apiresponse.data.user;
-                  apierror = apiresponse.error;
+                  isLoading = true;
+                  apierror = null;
+                  user = null;
                 });
-                print(apiresponse.data.user.name);
-              } else {
-                print(apiresponse.error);
-              }
-            }, child: const Text('Fetch User Data')),
-            if(user != null) 
-              GreenCard(user: user!),
+                try {
+                  final apiresponse = await Service().getUserInfo(userId.text);
+                  print(apiresponse);
+                  setState(() {
+                    if (apiresponse.error == null) {
+                      user = apiresponse.data.user;
+                    } else {
+                      apierror = apiresponse.error;
+                    }
+                  });
+                } catch (e) {
+                  setState(() {
+                    apierror = e.toString();
+                  });
+                } finally {
+                  setState(() {
+                    isLoading = false;
+                  });
+                }
+              },
+              child: const Text('Fetch User Data'),
+            ),
+            const SizedBox(height: 20),
+            // if (isLoading)
+            //   const CircularProgressIndicator()
+            // else if (apierror != null)
+            //   Padding(
+            //     padding: const EdgeInsets.all(5.0),
+            //     child: Text(
+            //       apierror!,
+            //       style: const TextStyle(
+            //           color: Colors.red, fontWeight: FontWeight.w700),
+            //     ),
+            //   )
+            // else if (user != null)
+            //   GreenCard(user: user!),
+            isLoading
+                ? const CircularProgressIndicator()
+                : apierror != null
+                    ? Text(
+                        apierror!,
+                        style: const TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.w700),
+                      )
+                    : user != null
+                        ? GreenCard(user: user!)
+                        : const Text(
+                            "Enter a user ID and click to get the user details",
+                            style: TextStyle(
+                                color: Colors.green, fontWeight: FontWeight.w700),
+                          ),
           ],
-          
         ),
       ),
     );
