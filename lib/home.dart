@@ -21,6 +21,41 @@ class _HomePageState extends State<HomePage> {
   String? apierror;
   bool isLoading = false;
 
+  Future<void> fetchUserData() async {
+    if (userId.text.trim().isEmpty) {
+      setState(() {
+        apierror = "Please enter a user ID";
+        user = null;
+      });
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+      apierror = null;
+      user = null;
+    });
+
+    try {
+      final apiresponse = await Service().getUserInfo(userId.text);
+      setState(() {
+        if (apiresponse.error == null) {
+          user = apiresponse.data.user;
+        } else {
+          apierror = apiresponse.error;
+        }
+      });
+    } catch (e) {
+      setState(() {
+        apierror = e.toString();
+      });
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -62,38 +97,39 @@ class _HomePageState extends State<HomePage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
               ),
-              onPressed: () async {
-                if (userId.text.trim().isEmpty) {
-                  setState(() {
-                    apierror = "Please enter a user ID";
-                    user = null;
-                  });
-                  return;
-                }
-                setState(() {
-                  isLoading = true;
-                  apierror = null;
-                  user = null;
-                });
-                try {
-                  final apiresponse = await Service().getUserInfo(userId.text);
-                  setState(() {
-                    if (apiresponse.error == null) {
-                      user = apiresponse.data.user;
-                    } else {
-                      apierror = apiresponse.error;
-                    }
-                  });
-                } catch (e) {
-                  setState(() {
-                    apierror = e.toString();
-                  });
-                } finally {
-                  setState(() {
-                    isLoading = false;
-                  });
-                }
-              },
+              onPressed: fetchUserData,
+              // () async {
+              //   if (userId.text.trim().isEmpty) {
+              //     setState(() {
+              //       apierror = "Please enter a user ID";
+              //       user = null;
+              //     });
+              //     return;
+              //   }
+              //   setState(() {
+              //     isLoading = true;
+              //     apierror = null;
+              //     user = null;
+              //   });
+              //   try {
+              //     final apiresponse = await Service().getUserInfo(userId.text);
+              //     setState(() {
+              //       if (apiresponse.error == null) {
+              //         user = apiresponse.data.user;
+              //       } else {
+              //         apierror = apiresponse.error;
+              //       }
+              //     });
+              //   } catch (e) {
+              //     setState(() {
+              //       apierror = e.toString();
+              //     });
+              //   } finally {
+              //     setState(() {
+              //       isLoading = false;
+              //     });
+              //   }
+              // },
               child: const Text('Fetch User Data'),
             ),
             const SizedBox(height: 20),
