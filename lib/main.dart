@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:test1/home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const _MyApp());
 }
 
-
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class _MyApp extends StatelessWidget {
+  const _MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: const HomePage(),
+    return const MaterialApp(
+      title: 'Api Call Testing',
+      home: HomePage(),
     );
   }
 }
