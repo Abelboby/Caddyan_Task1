@@ -77,7 +77,6 @@ class _HomePageState extends State<HomePage> {
                 });
                 try {
                   final apiresponse = await Service().getUserInfo(userId.text);
-                  // print(apiresponse);
                   setState(() {
                     if (apiresponse.error == null) {
                       user = apiresponse.data.user;
