@@ -3,6 +3,8 @@ import 'model.dart';
 import 'greencard.dart';
 import 'service.dart';
 
+enum HomeState { none, loading, error, success }
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -19,19 +21,19 @@ class _HomePageState extends State<HomePage> {
   late final TextEditingController userId;
   User? user;
   String? apierror;
-  bool isLoading = false;
+  HomeState currentState = HomeState.none;
 
   Future<void> fetchUserData() async {
     if (userId.text.trim().isEmpty) {
       setState(() {
         apierror = "Please enter a valid user ID";
-        user = null;
+        currentState = HomeState.error;
       });
       return;
     }
 
     setState(() {
-      isLoading = true;
+      currentState = HomeState.loading;
       apierror = null;
       user = null;
     });
@@ -41,19 +43,18 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         if (apiresponse.error == null) {
           user = apiresponse.data.user;
+          currentState = HomeState.success;
         } else {
           apierror = apiresponse.error;
+          currentState = HomeState.error;
         }
       });
     } catch (e) {
       setState(() {
         apierror = e.toString();
+        currentState = HomeState.error;
       });
     }
-
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override
@@ -98,60 +99,35 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(15)),
               ),
               onPressed: fetchUserData,
-              // () async {
-              //   if (userId.text.trim().isEmpty) {
-              //     setState(() {
-              //       apierror = "Please enter a user ID";
-              //       user = null;
-              //     });
-              //     return;
-              //   }
-              //   setState(() {
-              //     isLoading = true;
-              //     apierror = null;
-              //     user = null;
-              //   });
-              //   try {
-              //     final apiresponse = await Service().getUserInfo(userId.text);
-              //     setState(() {
-              //       if (apiresponse.error == null) {
-              //         user = apiresponse.data.user;
-              //       } else {
-              //         apierror = apiresponse.error;
-              //       }
-              //     });
-              //   } catch (e) {
-              //     setState(() {
-              //       apierror = e.toString();
-              //     });
-              //   } finally {
-              //     setState(() {
-              //       isLoading = false;
-              //     });
-              //   }
-              // },
               child: const Text('Fetch User Data'),
             ),
             const SizedBox(height: 20),
-            isLoading
-                ? const CircularProgressIndicator()
-                : apierror != null
-                    ? Text(
-                        apierror!,
-                        style: const TextStyle(
-                            color: Colors.red, fontWeight: FontWeight.w700),
-                      )
-                    : user != null
-                        ? GreenCard(user: user!)
-                        : const Text(
-                            "Enter a user ID and click to get the user details",
-                            style: TextStyle(
-                                color: Colors.green,
-                                fontWeight: FontWeight.w700),
-                          ),
+            _buildStateUI(),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildStateUI() {
+    switch (currentState) {
+      case HomeState.loading:
+        return const CircularProgressIndicator();
+
+      case HomeState.error:
+        return Text(
+          apierror!,
+          style:
+              const TextStyle(color: Colors.red, fontWeight: FontWeight.w700),
+        );
+
+      case HomeState.success:
+        return GreenCard(user: user!);
+
+      case HomeState.none:
+        return const Text("Enter a user ID and click to get the user details",
+          style: TextStyle(color: Colors.green, fontWeight: FontWeight.w700),
+        );
+    }
   }
 }
