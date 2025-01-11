@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'model.dart';
+import 'textcombo.dart';
 
 class GreenCard extends StatelessWidget {
   final User user;
@@ -33,7 +34,6 @@ class GreenCard extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(15),
               ),
-
             ),
             const SizedBox(width: 10),
             Expanded(
@@ -41,42 +41,19 @@ class GreenCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  textCombo("Name", user.name),
-                  textCombo("User ID", user.userId.toString()),
-                  textCombo("Age", user.age.toString()),
-                  textCombo("Profession", user.profession)
+                  TextComboWidget(leftText: "Name", rightText: user.name),
+                  TextComboWidget(
+                      leftText: "User ID", rightText: user.userId.toString()),
+                  TextComboWidget(
+                      leftText: "Age", rightText: user.age.toString()),
+                  TextComboWidget(
+                      leftText: "Profession", rightText: user.profession)
                 ],
               ),
-              
             ),
           ],
         ),
       ),
     );
   }
-
-  Widget textCombo(String leftText, String rightText) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 75,
-          child: Text(
-            leftText,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-          ),
-        ),
-        const Text(
-          ":",
-          style: TextStyle(color: Colors.white),
-        ),
-        const SizedBox(width: 8),
-        Text(
-          rightText,
-          style: const TextStyle(color: Colors.yellow, fontWeight: FontWeight.w600),
-        ),
-      ],
-    );
-  }
-
 }
