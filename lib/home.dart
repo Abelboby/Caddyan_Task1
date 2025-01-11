@@ -11,10 +11,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController userId = TextEditingController();
+  late final TextEditingController userId;
   User? user;
   String? apierror;
   bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    userId = TextEditingController();
+  }
 
   @override
   void dispose() {
