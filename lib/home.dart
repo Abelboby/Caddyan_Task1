@@ -11,6 +11,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static final OutlineInputBorder greenBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(15),
+    borderSide: const BorderSide(color: Colors.green),
+  );
+
   late final TextEditingController userId;
   User? user;
   String? apierror;
@@ -45,14 +50,8 @@ class _HomePageState extends State<HomePage> {
                 child: TextField(
                   controller: userId,
                   decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: const BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: const BorderSide(color: Colors.green),
-                    ),
+                    enabledBorder: greenBorder,
+                    focusedBorder: greenBorder,
                     hintText: 'Enter the User ID',
                   ),
                 )),
