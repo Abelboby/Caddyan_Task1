@@ -24,9 +24,17 @@ class _HomePageState extends State<HomePage> {
   HomeState currentState = HomeState.none;
 
   Future<void> fetchUserData() async {
-    if (userId.text.trim().isEmpty) {
+    final userInput = userId.text.trim();
+    if (userInput.isEmpty) {
       setState(() {
         apierror = "Please enter a valid user ID";
+        currentState = HomeState.error;
+      });
+      return;
+    }
+    if (int.tryParse(userInput) == null) {
+      setState(() {
+        apierror = "User ID must be a number";
         currentState = HomeState.error;
       });
       return;
@@ -125,7 +133,8 @@ class _HomePageState extends State<HomePage> {
         return GreenCard(user: user!);
 
       case HomeState.none:
-        return const Text("Enter a user ID and click to get the user details",
+        return const Text(
+          "Enter a user ID and click to get the user details",
           style: TextStyle(color: Colors.green, fontWeight: FontWeight.w700),
         );
     }
