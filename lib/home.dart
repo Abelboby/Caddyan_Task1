@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> fetchUserData() async {
     if (userId.text.trim().isEmpty) {
       setState(() {
-        apierror = "Please enter a user ID";
+        apierror = "Please enter a valid user ID";
         user = null;
       });
       return;
