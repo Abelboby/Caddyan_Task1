@@ -42,12 +42,9 @@ class GreenCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextComboWidget(leftText: "Name", rightText: user.name),
-                  TextComboWidget(
-                      leftText: "User ID", rightText: user.userId.toString()),
-                  TextComboWidget(
-                      leftText: "Age", rightText: user.age.toString()),
-                  TextComboWidget(
-                      leftText: "Profession", rightText: user.profession)
+                  TextComboWidget(leftText: "User ID", rightText: user.userId.toString()),
+                  TextComboWidget(leftText: "Age", rightText: user.age.toString()),
+                  TextComboWidget(leftText: "Profession", rightText: user.profession)
                 ],
               ),
             ),
