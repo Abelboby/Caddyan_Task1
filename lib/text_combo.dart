@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class TextComboWidget extends StatelessWidget {
-  final String leftText;
-  final String rightText;
+  final String label;
+  final String value;
 
   const TextComboWidget({
     super.key,
-    required this.leftText,
-    required this.rightText,
+    required this.label,
+    required this.value,
   });
 
   @override
@@ -18,9 +18,11 @@ class TextComboWidget extends StatelessWidget {
         SizedBox(
           width: 75,
           child: Text(
-            leftText,
+            label,
             style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w600),
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         const Text(
@@ -29,9 +31,11 @@ class TextComboWidget extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Text(
-          rightText,
+          value,
           style: const TextStyle(
-              color: Colors.yellow, fontWeight: FontWeight.w600),
+            color: Colors.yellow,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ],
     );

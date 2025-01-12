@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test1/home.dart';
+import 'package:test1/home_page.dart';
 
 void main() {
   runApp(const _MyApp());
@@ -11,7 +11,7 @@ class _MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Api Call Testing',
+      title: 'API Call Testing',
       home: HomePage(),
     );
   }

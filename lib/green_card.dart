@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'model.dart';
-import 'textcombo.dart';
+import 'actor_model.dart';
+import 'text_combo.dart';
 
 class GreenCard extends StatelessWidget {
   final User user;
@@ -20,31 +20,33 @@ class GreenCard extends StatelessWidget {
       ),
       child: Container(
         height: 150,
-        width: 400,
+        width: 450,
         padding: const EdgeInsets.all(10),
         child: Row(
           children: [
-            Container(
-              width: 100,
-              height: 200,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(user.profileImage),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-            const SizedBox(width: 10),
+            _buildProfileImage(),
+            const SizedBox(width: 20),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextComboWidget(leftText: "Name", rightText: user.name),
-                  TextComboWidget(leftText: "User ID", rightText: user.userId.toString()),
-                  TextComboWidget(leftText: "Age", rightText: user.age.toString()),
-                  TextComboWidget(leftText: "Profession", rightText: user.profession)
+                  TextComboWidget(
+                    label: "Name",
+                    value: user.name,
+                  ),
+                  TextComboWidget(
+                    label: "User ID",
+                    value: user.userId.toString(),
+                  ),
+                  TextComboWidget(
+                    label: "Age",
+                    value: user.age.toString(),
+                  ),
+                  TextComboWidget(
+                    label: "Profession",
+                    value: user.profession,
+                  ),
                 ],
               ),
             ),
@@ -53,5 +55,22 @@ class GreenCard extends StatelessWidget {
       ),
     );
   }
-}
 
+  Widget _buildProfileImage() {
+    return SizedBox(
+      width: 150,
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(user.profileImage),
+              fit: BoxFit.cover,
+            ),
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+      ),
+    );
+  }
+}
