@@ -7,24 +7,24 @@ String actorModelToJson(ActorModel data) => json.encode(data.toJson());
 
 class ActorModel {
     bool success;
-    Data data;
+    Data? data;
     dynamic error;
 
     ActorModel({
         required this.success,
-        required this.data, 
+        this.data, 
         required this.error,
     });
 
     factory ActorModel.fromJson(Map<String, dynamic> json) => ActorModel(
         success: json["success"],
-        data: Data.fromJson(json["data"]),
-        error: json["error"],
+        data: json["data"] != null ? Data.fromJson(json["data"]) : null,
+        error: json["error"] ?? '',
     );
 
     Map<String, dynamic> toJson() => {
         "success": success,
-        "data": data.toJson(),
+        "data": data?.toJson(),
         "error": error,
     };
 }

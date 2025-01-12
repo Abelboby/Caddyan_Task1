@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'model.dart';
-import 'greencard.dart';
+import 'green_card.dart';
 import 'service.dart';
 
 enum HomeState { none, loading, error, success }
@@ -45,24 +45,16 @@ class _HomePageState extends State<HomePage> {
       apierror = null;
       user = null;
     });
-
-    try {
-      final apiresponse = await Service().getUserInfo(userId.text);
-      setState(() {
-        if (apiresponse.error == null) {
-          user = apiresponse.data.user;
-          currentState = HomeState.success;
-        } else {
-          apierror = apiresponse.error;
-          currentState = HomeState.error;
-        }
-      });
-    } catch (e) {
-      setState(() {
-        apierror = e.toString();
+    final apiresponse = await Service().getUserInfo(userId.text);
+    setState(() {
+      if (apiresponse.error == null) {
+        user = apiresponse.data?.user;
+        currentState = HomeState.success;
+      } else {
+        apierror = apiresponse.error;
         currentState = HomeState.error;
-      });
-    }
+      }
+    });
   }
 
   @override
