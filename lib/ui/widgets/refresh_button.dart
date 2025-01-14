@@ -10,6 +10,8 @@ class RefreshButton extends StatelessWidget {
     return Consumer<UserProvider>(
       builder: (context, provider, child) => FloatingActionButton(
         onPressed: () => provider.reset(),
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
         child: const Icon(Icons.refresh),
       ),
     );

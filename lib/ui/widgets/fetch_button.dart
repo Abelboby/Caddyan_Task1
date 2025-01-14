@@ -3,9 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:test1/providers/user_provider.dart';
 
 class FetchButton extends StatelessWidget {
-  final TextEditingController controller;
-
-  const FetchButton({super.key, required this.controller});
+  const FetchButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,7 @@ class FetchButton extends StatelessWidget {
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         ),
-        onPressed: () => provider.fetchUserData(controller.text.trim()),
+        onPressed: () => provider.fetchUserData(),
         child: const Text('Fetch User Data'),
       ),
     );

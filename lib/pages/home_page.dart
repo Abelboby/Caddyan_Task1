@@ -37,15 +37,17 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('API Call Testing'),
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            InputField(controller: _userIdController),
-            FetchButton(controller: _userIdController),
-            const SizedBox(height: 10),
-            const UserDataOutput(),
+            // InputField(controller: _userIdController),
+            InputField(),
+            // FetchButton(controller: _userIdController),
+            FetchButton(),
+            SizedBox(height: 10),
+            UserDataOutput(),
           ],
         ),
       ),
