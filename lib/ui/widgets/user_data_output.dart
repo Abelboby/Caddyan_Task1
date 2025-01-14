@@ -9,26 +9,20 @@ class UserDataOutput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<UserProvider>(
-      builder: (context, provider, _) {
+      builder: (context, provider, child) {
         if (provider.currentState == HomeState.loading) {
-          return const CircularProgressIndicator();
+          return const CircularProgressIndicator(color: Colors.green,);
         } else if (provider.currentState == HomeState.error) {
           return Text(
             provider.apiError!,
-            style: const TextStyle(
-              color: Colors.red,
-              fontWeight: FontWeight.w700,
-            ),
+            style: const TextStyle(color: Colors.red,fontWeight: FontWeight.w700),
           );
         } else if (provider.currentState == HomeState.success) {
           return GreenCard(user: provider.user!);
         } else {
           return const Text(
             "Enter a valid user ID and click to get the user details",
-            style: TextStyle(
-              color: Colors.green,
-              fontWeight: FontWeight.w700,
-            ),
+            style: TextStyle(color: Colors.green,fontWeight: FontWeight.w700),
             );
         }
       },

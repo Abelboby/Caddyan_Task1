@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/actor_model.dart';
 import '../services/api_service.dart';
 
-enum HomeState {none,loading,error,success,}
+enum HomeState { none, loading, error, success }
 
 class UserProvider extends ChangeNotifier {
   User? user;

@@ -10,13 +10,11 @@ class FetchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<UserProvider>(
-      builder: (context, provider, _) => ElevatedButton(
+      builder: (context, provider, child) => ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.blue,
           foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         ),
         onPressed: () => provider.fetchUserData(controller.text.trim()),
         child: const Text('Fetch User Data'),
