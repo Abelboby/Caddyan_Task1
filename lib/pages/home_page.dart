@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test1/ui/widgets/fetch_button.dart';
+import 'package:test1/ui/widgets/refresh_button.dart';
 import 'package:test1/ui/widgets/user_data_output.dart';
 import '../ui/widgets/input_field.dart';
 
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+          children: [
             InputField(controller: _userIdController),
             FetchButton(controller: _userIdController),
             const SizedBox(height: 10),
@@ -48,6 +49,8 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+      floatingActionButton: const RefreshButton(),
     );
   }
 }
+

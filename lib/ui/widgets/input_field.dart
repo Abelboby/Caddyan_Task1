@@ -6,7 +6,7 @@ class InputField extends StatelessWidget {
   const InputField({super.key, required this.controller});
     static final OutlineInputBorder _greenBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(15),
-    borderSide: const BorderSide(color: Colors.green),
+    borderSide: const BorderSide(color: Color.fromARGB(255, 116, 187, 119)),
   );
 
   @override

@@ -7,6 +7,7 @@ enum HomeState { none, loading, error, success }
 class UserProvider extends ChangeNotifier {
   User? user;
   String? apiError;
+  //late TextEditingController _userIdController;
   HomeState currentState = HomeState.none;
   final _service = Service();
 
