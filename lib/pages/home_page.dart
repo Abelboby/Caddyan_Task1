@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'actor_model.dart';
-import 'green_card.dart';
-import 'api_service.dart';
+import '../models/actor_model.dart';
+import '../ui/widgets/green_card.dart';
+import '../services/api_service.dart';
 
 enum HomeState {
   none,

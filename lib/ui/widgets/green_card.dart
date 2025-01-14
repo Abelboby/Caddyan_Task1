@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'actor_model.dart';
+import '../../models/actor_model.dart';
 import 'text_combo.dart';
 
 class GreenCard extends StatelessWidget {
